@@ -15,14 +15,18 @@ function App() {
 
   const [newWage, setNewWage] = useState(0);
 
+  const [searchkey, setSearchKey] = useState("");
+
   const [employeeList, setEmployeeList] = useState([]);
 
+  //view employees
   const getEmployees = () => {
     Axios.get("http://localhost:3001/employees").then((response) => {
       setEmployeeList(response.data);
     });
   };
 
+  //Add new employee
   const addEmployee = () => {
     Axios.post("http://localhost:3001/create", {
       name: name,
@@ -44,6 +48,7 @@ function App() {
     });
   };
 
+  //update employee wage
   const updateEmployeeWage = (id) => {
     Axios.put("http://localhost:3001/update", {
       wage: newWage,
@@ -66,6 +71,8 @@ function App() {
     });
   };
 
+  //delete employee function
+
   const deleteEmployee = (id) => {
     Axios.delete(`http://localhost:3001/delete/${id}`).then((response) => {
       setEmployeeList(
@@ -77,9 +84,13 @@ function App() {
   };
 
   //searching part
-  const searchEmployee = () => {
-    Axios.get("http://localhost:3001/search").then((response) => {
-      console.log("searching ...");
+  const searchEmployee = (name) => {
+    Axios.get(`http://localhost:3001/search/${searchkey}`).then((response) => {
+      setEmployeeList(
+        employeeList.filter((val) => {
+          return val.name === name;
+        })
+      );
     });
   };
 
@@ -161,9 +172,9 @@ function App() {
       <div className="search-section">
         <input
           placeholder="set search key"
-          onClick={() => searchEmployee(name)}
+          onChange={(e) => setSearchKey(e.target.value)}
         ></input>
-        <button>SEARCH</button>
+        <button onClick={() => searchEmployee(name)}>SEARCH</button>
       </div>
     </div>
   );
