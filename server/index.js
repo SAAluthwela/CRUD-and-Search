@@ -75,6 +75,17 @@ app.delete("/delete/:id", (req, res) => {
   });
 });
 
+app.get("search/:name", (req, res) => {
+  const name = req.params.name;
+  db.query("SELECT * FROM employees WHERE name = ?", name, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.listen(3001, () => {
   console.log("Server running on port 3001");
 });
