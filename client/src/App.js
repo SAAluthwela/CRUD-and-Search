@@ -76,10 +76,12 @@ function App() {
     });
   };
 
-  //searching
-  // const searchEmployee = () => {
-  //   Axios.get("http://localhost:3001/search").then((response) => {});
-  // };
+  //searching part
+  const searchEmployee = () => {
+    Axios.get("http://localhost:3001/search").then((response) => {
+      console.log("searching ...");
+    });
+  };
 
   return (
     <div className="App">
@@ -157,7 +159,10 @@ function App() {
       </div>
 
       <div className="search-section">
-        <input placeholder="set search key"></input>
+        <input
+          placeholder="set search key"
+          onClick={() => searchEmployee(name)}
+        ></input>
         <button>SEARCH</button>
       </div>
     </div>
