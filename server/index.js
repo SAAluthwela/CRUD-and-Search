@@ -75,7 +75,7 @@ app.delete("/delete/:id", (req, res) => {
   });
 });
 
-app.get("search/:name", (req, res) => {
+app.post("search/:name", (req, res) => {
   const name = req.params.name;
   db.query("SELECT * FROM employees WHERE name = ?", name, (err, result) => {
     if (err) {
